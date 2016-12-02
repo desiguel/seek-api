@@ -1,5 +1,5 @@
 {
-  "name": "calendarview-azure",
+  "name": "seek-api",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -11,19 +11,16 @@
   },
   "dependencies": {
     "async": "^2.0.1",
-    "body-parser": "~1.13.3",
+    "body-parser": "^1.13.3",
     "cheerio": "~0.20.0",
-    "connect-flash": "^0.1.1",
-    "cookie-parser": "^1.4.3",
-    "ejs": "^2.5.2",
-    "express": "~4.13.3",
+    "express": "^4.13.4",
     "express-session": "^1.14.1",
+    "jsonwebtoken": "^7.1.9",
     "method-override": "^2.3.6",
     "minimongo": "^4.1.0",
+    "mongoose": "^4.7.1",
     "morgan": "^1.7.0",
-    "mustache-express": "~1.2.2",
-    "passport": "^0.3.2",
-    "passport-local": "^1.0.0"
+    "pug": "^2.0.0-beta6"
   },
   "devDependencies": {
     "grunt": "~1.0.1",
