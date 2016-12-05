@@ -1,2 +1,2 @@
 #pattern  filter=crypt diff=crypt
-config/credentials.js filter=crypt diff=crypt
+config/secrets.js filter=crypt diff=crypt
