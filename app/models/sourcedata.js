@@ -1,80 +1,42 @@
-var cheerio     = require('cheerio');
-
-// TODO insert details here.
-var userid      = "";
-var pw          = "";
+var cheerio = require('cheerio');
 
 /**
- * Return next value in array. Returns '' if no next value
- * @param array
- * @param value
- * @returns {*}
- */
-function getNext(array, value) {
-  index = array.indexOf(value);
-  if(index >= 0 && index < array.length - 1)
-     return array[index + 1];
-  return '';
-}
-
-function guid() {
-    function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-            .toString(16)
-            .substring(1);
-    }
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-        s4() + '-' + s4() + s4() + s4();
-}
-
-/**
- * Retrieves data from the source website. Essentially works as a quasi API.
- * @param startDate
+ * Retrieves data from the source website.
  * @param callback
  */
-function getData(startDate, callback) {
+function getData(callback) {
   
   var request = require('request');
-  var j = request.jar();
-  var fs = require('fs');
+
+  // Construct url
+  var protocol = "https";
+  var host = "www.seek.com.au";
+  var industry = "jobs-in-information-communication-technology";
+  var location = "in-All-Brisbane-QLD";
+  var keywords = "(javascript%20or%20data)%20not%20(%22.net%22%20or%20%22c%23%22%20or%20consultant)";
+  var sortmode = "listeddate";
+  var subclassification ="6287%2C6302";
+
+  var url = protocol + "://" + host + "/" + industry + "/" + location + "?"
+    + "keywords=" + keywords + "&sortmode=" + sortmode + "&subclassification=" + subclassification;
 
   // Make the HTTPS request.
-  request({
-      url:"https://site", // TODO insert site reference
-      method:"POST",
-      jar: j,
-      form:{
-        redirect: "",
-        email:userid,
-        password:pw,
-        remember_me: "on"
-      },
-      headers: {               
-      'Authorization': 'Basic ' + new Buffer(userid + ":" + pw).toString('base64')
-  }
-  },
-  function(error, response, body){
+  request(url, function(error, response, body){
     if (error){
-      console.error(error);
-      return;
+      return console.log('Error:', error);
     }
-    request({
-        url:"https://site", // TODO insert site reference
-        method:"POST",
-        jar: j,
-        form: {}
-    }, function(error, response, body){
-        if (error){
-          console.error(error);
-          return;
-        }
-        var $ = cheerio.load(body);
 
-        // TODO extract data from site page(s).
-        
-        // var mock_data = require('./../../mock_data.json');
-        callback(data_variable); // TODO
-    });
+    // Check for right status code
+    if(response.statusCode !== 200){
+      return console.log('Invalid Status Code Returned:', response.statusCode);
+    }
+
+    // Process the body for the required data.
+    console.log(body);
+
+    // TODO
+    callback(data_variable);
+
   });
 }
 
