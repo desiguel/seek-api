@@ -1,7 +1,7 @@
 // app/routes.js
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
-var secrets = require('../config/secrets.js');
+var secrets = require('../../config/secrets.js');
 
 const saltRounds = 10;
 

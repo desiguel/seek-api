@@ -24,7 +24,7 @@ app.use(morgan('dev')); // log every request to the console
 
 // routes ======================================================================
 // load our routes and pass in our app
-require('./app/routes.js')(app, express, port, User, source);
+require('./app/routes/routes.js')(app, express, port, User, source);
 
 // launch ======================================================================
 var listener = app.listen(port, function () {
