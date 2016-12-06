@@ -1,5 +1,8 @@
 // app/routes.js
 var bcrypt = require('bcrypt');
+var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
+var secrets = require('../config/secrets.js');
+
 const saltRounds = 10;
 
 module.exports = function (app, express, port, User, source) {
@@ -50,16 +53,16 @@ module.exports = function (app, express, port, User, source) {
       } else if (user) {
 
         // check if hashed password matches
-        bcrypt.compare(req.body.password, user.password, function(err, res) {
+        bcrypt.compare(req.body.password, user.password, function(err, compare_result) {
 
-          if (res == true) {
+          if (compare_result != true) {
             res.json({ success: false, message: 'Authentication failed. Wrong password.' });
           } else {
 
             // if user is found and password is right
             // create a token
-            var token = jwt.sign(user, app.get('superSecret'), {
-              expiresInMinutes: 1440 // expires in 24 hours
+            var token = jwt.sign(user, secrets.secret, {
+              expiresIn: 1440 // expires in 24 hours
             });
 
             // return the information including token as JSON
