@@ -16,7 +16,8 @@ var source = require('./app/models/sourcedata');
 // configuration ===============================================================
 
 var port = process.env.PORT || 8080;
-app.set('view engine', 'pug');
+mongoose.connect(config.database); // connect to database
+app.set('superSecret', config.secret); // secret variable
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -24,7 +25,7 @@ app.use(morgan('dev')); // log every request to the console
 
 // routes ======================================================================
 // load our routes and pass in our app
-require('./app/routes.js')(app, port);
+require('./app/routes.js')(app, express, port, User, source);
 
 // launch ======================================================================
 var listener = app.listen(port, function () {
