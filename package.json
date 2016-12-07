@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "SET NODE_ENV=dev && node server.js"
+    "start": "NODE_ENV=dev && node server.js"
   },
   "license": "Apache",
   "engines": {

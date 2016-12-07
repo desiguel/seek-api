@@ -17,7 +17,7 @@ var source = require('./app/models/sourcedata');
 var port = process.env.PORT || 8080;
 mongoose.connect(config.database); // connect to database
 var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
+db.on('error', console.error.bind(console, 'Database connection error:'));
 
 app.set('super_secret', config.secret); // secret variable
 
@@ -28,10 +28,8 @@ app.use(bodyParser.json());
 
 // Don't log when under test
 if(config.util.getEnv('NODE_ENV') !== 'test') {
-  app.use(morgan('combined'));
+  app.use(morgan('dev'));
 }
-
-app.use(morgan('dev')); // log every request to the console
 
 // routes ======================================================================
 
