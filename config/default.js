@@ -1,4 +1,4 @@
-// config / database.js
+// config / default.js
 var secrets = require('./secrets.js');
 
 module.exports = {

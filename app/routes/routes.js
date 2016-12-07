@@ -1,7 +1,6 @@
 // app/routes.js
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
-var secrets = require('../../config/secrets.js');
 
 const saltRounds = 10;
 
@@ -61,7 +60,7 @@ module.exports = function (app, express, port, User, source) {
 
             // if user is found and password is right
             // create a token
-            var token = jwt.sign(user, secrets.secret, {
+            var token = jwt.sign(user, app.super_secret, {
               expiresIn: 1440 // expires in 24 hours
             });
 
