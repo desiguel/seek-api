@@ -63,7 +63,7 @@ module.exports = function (app, express, port, User, source) {
 
             // if user is found and password is right
             // create a token
-            var token = jwt.sign(user, app.super_secret, {
+            var token = jwt.sign(user, app.get('super_secret'), {
               expiresIn: 1440 // expires in 24 hours
             });
 
@@ -89,7 +89,7 @@ module.exports = function (app, express, port, User, source) {
     if (token) {
 
       // verifies secret and checks exp
-      jwt.verify(token, app.get('superSecret'), function(err, decoded) {
+      jwt.verify(token, app.get('super_secret'), function(err, decoded) {
         if (err) {
           return res.json({ success: false, message: 'Failed to authenticate token.' });
         } else {

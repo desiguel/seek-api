@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "NODE_ENV=dev && nodemon -e js,html,ejs,css server.js",
-    "test": "mocha $(find . -name '*.spec.js' ! -ipath '*node_modules*')"
+    "test": "mocha $(find . -name '*.spec.js' ! -ipath '*node_modules*') --growl --watch"
   },
   "license": "Apache",
   "engines": {
