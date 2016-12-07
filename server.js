@@ -41,3 +41,5 @@ require('./app/routes/routes.js')(app, express, port, User, source);
 var listener = app.listen(port, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
+
+module.exports = app; // for testing

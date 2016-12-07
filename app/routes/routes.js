@@ -8,7 +8,10 @@ module.exports = function (app, express, port, User, source) {
 
   // Test route.
   app.get('/', function (req, res) {
-    res.send('Hello! The API is at http://localhost:' + port + '/api');
+    res.json({
+      success: true,
+      message: 'Welcome to my seek-api.'
+    });
   });
 
   // Route used for setting up initial user.
