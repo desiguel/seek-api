@@ -1,7 +1,26 @@
 var cheerio = require('cheerio');
 
+/**
+ * Extract the text from a string following a target string and ending with a ";".
+ * @param target
+ * @param variable
+ * @returns {string}
+ */
+function findTextAndReturnRemainder(target, variable){
+  var chopFront = target.substring(target.search(variable)+variable.length,target.length);
+  return chopFront.substring(0,chopFront.search(";"));
+}
+
+/**
+ * Take a body page and extract the jobs information from it.
+ * @param body
+ */
 function processPage(body) {
-  console.log(body);
+  var $ = cheerio.load(body.data);
+  var script_data = $($('script[data-automation=server-state]')[0]).text();
+  var findAndClean = findTextAndReturnRemainder(script_data,"window.SEEK_REDUX_DATA =");
+  var result = JSON.parse(findAndClean).results.results.jobs;
+  console.log(result);
 }
 
 /**
@@ -21,15 +40,18 @@ function getData(callback) {
   var sortmode = "listeddate";
   var subclassification ="6287%2C6302";
 
-  var url = protocol + "://" + host + "/" + industry + "/" + location + "?"
-    + "keywords=" + keywords + "&sortmode=" + sortmode + "&subclassification=" + subclassification;
-
-  // console.log(url);
-
-  var url = "http://www.google.com";
+  var options = {
+    url: protocol + "://" + host + "/" + industry + "/" + location + "?"
+         + "keywords=" + keywords + "&sortmode=" + sortmode + "&subclassification=" + subclassification,
+    method: 'GET',
+    headers: {
+      Host: 'www.seek.com.au',
+      'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:49.0) Gecko/20100101 Firefox/49.0'
+    }
+  };
 
   // Make the HTTPS request.
-  request(url, function(error, response, body){
+  request(options, function(error, response, body){
     if (!error && response.statusCode == 200) {
       callback(null, {data: body});
     } else {

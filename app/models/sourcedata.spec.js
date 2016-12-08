@@ -8,11 +8,10 @@ describe('Function getData', function() {
 
   before(function (done) {
     source.getData(function(err, result) {
-      console.log(result);
+      source.processPage(result);
       done();
     });
   });
-
 
   it('should return body.', function(done) {
     done();
