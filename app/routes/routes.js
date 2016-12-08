@@ -1,10 +1,11 @@
 // app/routes.js
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
+var source = require("../models/sourcedata.js");
 
 const saltRounds = 10;
 
-module.exports = function (app, express, port, User, source) {
+module.exports = function (app, express, port, User) {
 
   // Test route.
   app.get('/', function (req, res) {
@@ -111,7 +112,7 @@ module.exports = function (app, express, port, User, source) {
     }
   });
 
-  // Test API default route. (GET http://localhost:8080/api/)
+  // API default route. (GET http://localhost:8080/api/)
   api_routes.get('/', function(req, res) {
     res.json({success: true, message: 'Default API route test success' });
   });
@@ -120,6 +121,13 @@ module.exports = function (app, express, port, User, source) {
   api_routes.get('/users', function(req, res) {
     User.find({}, function(err, users) {
       res.json(users);
+    });
+  });
+
+  // Route to return all recent jobs (GET http://localhost:8080/api/jobs)
+  api_routes.get('/jobs', function(req, res) {
+    source.getData(function(err, result) {
+      res.json({success: true, jobs: source.processPage(result)});
     });
   });
 

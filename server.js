@@ -10,7 +10,6 @@ var mongoose = require('mongoose');
 
 var config = require('config'); // file is automagic. See: https://github.com/lorenwest/node-config/wiki/Configuration-Files
 var User = require('./app/models/user'); // get our mongoose model
-var source = require('./app/models/sourcedata');
 
 // configuration ===============================================================
 
@@ -34,7 +33,7 @@ if(config.util.getEnv('NODE_ENV') !== 'test') {
 // routes ======================================================================
 
 // load routes
-require('./app/routes/routes.js')(app, express, port, User, source);
+require('./app/routes/routes.js')(app, express, port, User);
 
 // launch ======================================================================
 

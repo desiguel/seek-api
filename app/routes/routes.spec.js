@@ -79,4 +79,18 @@ describe('API route', function () {
     });
   });
 
+  describe('/GET', function () {
+    it('/api/jobs with auth token should return a jobs list.', function (done) {
+      chai.request(server)
+        .get('/api/jobs')
+        .query({token: test_token})
+        .end(function (err, res) {
+          res.should.have.status(200);
+          res.body.success.should.be.eql(true);
+          res.body.jobs.length.should.not.be.eql(0);
+          done();
+        });
+    });
+  });
+
 });

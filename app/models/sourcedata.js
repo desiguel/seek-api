@@ -19,8 +19,7 @@ function processPage(body) {
   var $ = cheerio.load(body.data);
   var script_data = $($('script[data-automation=server-state]')[0]).text();
   var findAndClean = findTextAndReturnRemainder(script_data,"window.SEEK_REDUX_DATA =");
-  var result = JSON.parse(findAndClean).results.results.jobs;
-  console.log(result);
+  return JSON.parse(findAndClean).results.results.jobs;
 }
 
 /**

@@ -4,16 +4,21 @@ var source = require("./sourcedata.js");
 var chai = require('chai');
 var should = chai.should();
 
+// Test if external getData function is working.
 describe('Function getData', function() {
+
+  var jobs_list;
 
   before(function (done) {
     source.getData(function(err, result) {
-      source.processPage(result);
+      jobs_list = source.processPage(result);
       done();
     });
   });
 
-  it('should return body.', function(done) {
+  it('should return a jobs list of non-zero length.', function(done) {
+    should.not.equal(jobs_list, undefined);
+    jobs_list.length.should.not.be.eql(0);
     done();
   });
 });
