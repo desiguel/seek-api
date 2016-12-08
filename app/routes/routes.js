@@ -113,7 +113,7 @@ module.exports = function (app, express, port, User, source) {
 
   // Test API default route. (GET http://localhost:8080/api/)
   api_routes.get('/', function(req, res) {
-    res.json({ message: 'Default API route test success' });
+    res.json({success: true, message: 'Default API route test success' });
   });
 
   // Route to return all users (GET http://localhost:8080/api/users)
