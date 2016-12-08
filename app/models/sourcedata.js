@@ -1,5 +1,9 @@
 var cheerio = require('cheerio');
 
+function processPage(body) {
+  console.log(body);
+}
+
 /**
  * Retrieves data from the source website.
  * @param callback
@@ -20,24 +24,19 @@ function getData(callback) {
   var url = protocol + "://" + host + "/" + industry + "/" + location + "?"
     + "keywords=" + keywords + "&sortmode=" + sortmode + "&subclassification=" + subclassification;
 
+  // console.log(url);
+
+  var url = "http://www.google.com";
+
   // Make the HTTPS request.
   request(url, function(error, response, body){
-    if (error){
-      return console.log('Error:', error);
+    if (!error && response.statusCode == 200) {
+      callback(null, {data: body});
+    } else {
+      callback(error);
     }
-
-    // Check for right status code
-    if(response.statusCode !== 200){
-      return console.log('Invalid Status Code Returned:', response.statusCode);
-    }
-
-    // Process the body for the required data.
-    console.log(body);
-
-    // TODO
-    callback(data_variable);
-
   });
 }
 
+exports.processPage = processPage;
 exports.getData = getData;
