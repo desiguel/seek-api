@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "NODE_ENV=dev && nodemon -e js,html,ejs,css server.js",
+    "start": "NODE_ENV=dev && node server.js",
+    "start-dev": "NODE_ENV=dev && nodemon -e js,html,ejs,css server.js",
     "test": "mocha $(find . -name '*.spec.js' ! -ipath '*node_modules*') --timeout 10000",
     "test-w": "mocha $(find . -name '*.spec.js' ! -ipath '*node_modules*') --growl --watch --timeout 10000"
   },
