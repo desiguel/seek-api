@@ -11,7 +11,7 @@ describe('Function getData', function() {
 
   before(function (done) {
     source.getData(function(err, result) {
-      jobs_list = source.processPage(result);
+      jobs_list = result.data;
       done();
     });
   });

@@ -127,7 +127,7 @@ module.exports = function (app, express, port, User) {
   // Route to return all recent jobs (GET http://localhost:8080/api/jobs)
   api_routes.get('/jobs', function(req, res) {
     source.getData(function(err, result) {
-      res.json({success: true, jobs: source.processPage(result)});
+      res.json({success: true, jobs: result.data});
     });
   });
 

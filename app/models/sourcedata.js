@@ -14,12 +14,13 @@ function findTextAndReturnRemainder(target, variable){
 /**
  * Take a body page and extract the jobs information from it.
  * @param body
+ * @param callback
  */
-function processPage(body) {
-  var $ = cheerio.load(body.data);
+function processPage(body, callback) {
+  var $ = cheerio.load(body);
   var script_data = $($('script[data-automation=server-state]')[0]).text();
   var findAndClean = findTextAndReturnRemainder(script_data,"window.SEEK_REDUX_DATA =");
-  return JSON.parse(findAndClean).results.results.jobs;
+  callback(null, {data: JSON.parse(findAndClean).results.results.jobs});
 }
 
 /**
@@ -52,12 +53,11 @@ function getData(callback) {
   // Make the HTTPS request.
   request(options, function(error, response, body){
     if (!error && response.statusCode == 200) {
-      callback(null, {data: body});
+      processPage(body, callback);
     } else {
       callback(error);
     }
   });
 }
 
-exports.processPage = processPage;
 exports.getData = getData;
