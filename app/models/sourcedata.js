@@ -53,6 +53,7 @@ function getData(callback) {
   // Make the HTTPS request.
   request(options, function(error, response, body){
     if (!error && response.statusCode == 200) {
+      console.log(body);
       processPage(body, callback);
     } else {
       callback(error);
